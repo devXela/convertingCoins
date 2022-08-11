@@ -24,8 +24,7 @@ function App() {
         })
       });
       let resJson = await res.json()
-        console.log(resJson)
-        if (resJson.status == 200) {
+      if (resJson.status == 200) {
         console.log(resJson)
         setValueConverted("sdf")
       }
@@ -33,15 +32,6 @@ function App() {
       console.error(err);
     }
   };
-
-    // React.useEffect(() => {
-    //     fetch("/convertCoin")
-    //       .then((res) => res.json())
-    //       .then((data) => setData(data.message));
-    //   }, []);
-    //   console.log(valueToConvert)
-    // }
-    
 
   return (
     <div className="App">
