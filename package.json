@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/devXela/convertingCoins#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "puppeteer": "^16.1.0"
   }
 }
