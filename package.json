@@ -1,0 +1,20 @@
+{
+  "name": "convertingcoins",
+  "version": "1.0.0",
+  "description": "Convertendo moedas usando nodejs e puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devXela/convertingCoins.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devXela/convertingCoins/issues"
+  },
+  "homepage": "https://github.com/devXela/convertingCoins#readme"
+}
