@@ -4,7 +4,12 @@
   "description": "Convertendo moedas usando nodejs e puppeteer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js",
+    "build": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": "18.4.0"
   },
   "repository": {
     "type": "git",
@@ -16,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/devXela/convertingCoins/issues"
   },
-  "homepage": "https://github.com/devXela/convertingCoins#readme"
+  "homepage": "https://github.com/devXela/convertingCoins#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
