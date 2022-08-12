@@ -13,7 +13,8 @@ function App() {
 
   let convertCoin = async (e) => {
     e.preventDefault();
-    setValueConverted('')
+    setValueConverted(0)
+    setSourceOfScreenshot('')
     try {
       let res = await fetch("/convertCoin", {
         method: 'POST',
@@ -33,7 +34,7 @@ function App() {
       if (resJson.status === 200) {
         console.log(resJson)
         setValueConverted(resJson.valueConverted)
-        setSourceOfScreenshot(resJson.sourceOfScreenshot)
+        setSourceOfScreenshot(resJson.screenshot)
       }
    
     } catch (err) {
@@ -73,10 +74,10 @@ function App() {
           </div>
         </form>
         <div>
-          <p>{!valueConverted ? "Convertendo..." : "O valor convertido foi: " + valueConverted}</p>
+          <p>{!valueConverted ? "" : (valueConverted === 0 ? "Convertendo..." : "O valor convertido foi: " + valueConverted)}</p>
         </div>
         <div>
-          <img src={sourceOfScreenshot === '' ? 'convertedPrints/' + sourceOfScreenshot : ''} width="1280" />
+          <img src={sourceOfScreenshot !== '' ? '/printsOfConversions' + sourceOfScreenshot : ''} alt="Print da conversão"/>
         </div>
       </body>
       

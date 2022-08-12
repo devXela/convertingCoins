@@ -3,7 +3,7 @@ const path = require("path");
 
 exports.convert_coin = function(req, res) {
     console.log(req.body)
-    let pathConvertPrints = path.resolve(__dirname, '../../client/src/convertPrints');
+    let pathConvertPrints = path.resolve(__dirname, '../../client/public/printsOfConversions');
     let coin = req.body.coin;
     let valueToConvert = req.body.valueToConvert;
 
