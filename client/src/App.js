@@ -1,9 +1,6 @@
 import React from "react"
-import logo from './logo.svg';
-import './App.css';
 
 function App() {
-  // const [data, setData] = React.useState(null);
   const [valueToConvert, setValueToConvert] = React.useState(null);
   const [coin, setCoin] = React.useState(null);
   const [valueConverted, setValueConverted] = React.useState(null);
@@ -11,7 +8,6 @@ function App() {
   const [visible, setVisible] = React.useState(null);
   const [msgError, setMsgError] = React.useState(null);
   
-
   let convertCoin = async (e) => {
     e.preventDefault();
     if ( 
@@ -60,19 +56,28 @@ function App() {
   };
 
   return (
-    <div className="App">
-        <form onSubmit={convertCoin}>
+    <div className="App row">
+      <h1 className="text-center">Convertendo REAL</h1>
+      <p className="text-center">Digite o valor para ser convertido e selecione entre: <span className="text-black-50">EURO</span>, <span className="text-black-50">Libras Esterlinas</span>, <span className="text-black-50">Dólar</span> ou <span className="text-black-50">Peso Argentino</span></p>
+        <form onSubmit={convertCoin} className="offset-1 col-sm-10">
           <div>
+            <p className="mt-2 text-danger">{msgError == false ? 'Digite o valor a ser convertido ou selecione a moeda que será usada na conversão' : null}</p>
+          </div>
+          <div className="mb-3">
+            <label for="valueToConvert">Valor em BRL</label>
             <input 
               type="number" 
               id="valueToConvert" 
+              className="form-control"
               name="valueToConvert" 
               placeholder="Digite o valor em real a ser convertido" 
               onChange={(e) => setValueToConvert(e.target.value)}/>
           </div>
           <div>
+            <label for="coin">Moeda para conversão</label>
             <select 
               id="coin" 
+              className="form-control"
               name="coin" 
               onChange={(e) => setCoin(e.target.value)}>
                 <option value=''>Selecione a moeda que o valor será convertido</option>
@@ -82,17 +87,14 @@ function App() {
                 <option value='GBP'>Libras Esterlinas</option>
             </select>
           </div>
-          <div>
-            <input type="submit" value="Converter" />
+          <div className="mt-3">
+            <input className="btn btn-primary" type="submit" value="Converter" />
           </div>
-          <div>
-            <p>{msgError == false ? 'Digite o valor a ser convertido ou selecione a moeda que será usada na conversão' : null}</p>
+          <div className="row">
+            <p className="mt-3 col-sm-9">{!valueConverted ? "" : (valueConverted === '0' ? <span className="text-warning">Convertendo...</span> : <span className="text-success">O valor convertido foi: ${valueConverted}</span>)}</p>
           </div>
         </form>
-        <div>
-          <p>{!valueConverted ? "" : (valueConverted === '0' ? "Convertendo..." : "O valor convertido foi: " + valueConverted)}</p>
-        </div>
-        <div>
+        <div className="row">
           <img src={sourceOfScreenshot !== null ? '/printsOfConversions' + sourceOfScreenshot : ''} style={{ visibility: visible ? "visible" : "hidden" }} alt="Print da conversão"/>
         </div>      
     </div>
