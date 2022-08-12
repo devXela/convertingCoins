@@ -8,13 +8,17 @@ function App() {
   const [coin, setCoin] = React.useState(null);
   const [valueConverted, setValueConverted] = React.useState(null);
   const [sourceOfScreenshot, setSourceOfScreenshot] = React.useState(null);
+  const [visible, setVisible] = React.useState(null);
   
 
 
   let convertCoin = async (e) => {
     e.preventDefault();
-    setValueConverted(0)
-    setSourceOfScreenshot('')
+
+    setValueConverted('0');
+    setVisible(false);
+    setSourceOfScreenshot('');
+
     try {
       let res = await fetch("/convertCoin", {
         method: 'POST',
@@ -35,6 +39,7 @@ function App() {
         console.log(resJson)
         setValueConverted(resJson.valueConverted)
         setSourceOfScreenshot(resJson.screenshot)
+        setVisible(true)
       }
    
     } catch (err) {
@@ -74,10 +79,10 @@ function App() {
           </div>
         </form>
         <div>
-          <p>{!valueConverted ? "" : (valueConverted === 0 ? "Convertendo..." : "O valor convertido foi: " + valueConverted)}</p>
+          <p>{!valueConverted ? "" : (valueConverted === '0' ? "Convertendo..." : "O valor convertido foi: " + valueConverted)}</p>
         </div>
         <div>
-          <img src={sourceOfScreenshot !== '' ? '/printsOfConversions' + sourceOfScreenshot : ''} alt="Print da conversão"/>
+          <img src={sourceOfScreenshot !== '' ? '/printsOfConversions' + sourceOfScreenshot : ''} style={{ visibility: visible ? "visible" : "hidden" }} alt="Print da conversão"/>
         </div>
       </body>
       
