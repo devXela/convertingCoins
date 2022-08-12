@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "Client para a conversão de valores",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001",
