@@ -9,54 +9,62 @@ function App() {
   const [valueConverted, setValueConverted] = React.useState(null);
   const [sourceOfScreenshot, setSourceOfScreenshot] = React.useState(null);
   const [visible, setVisible] = React.useState(null);
+  const [msgError, setMsgError] = React.useState(null);
   
-
 
   let convertCoin = async (e) => {
     e.preventDefault();
+    if ( 
+      valueToConvert === '' ||
+      valueToConvert === null ||
+      coin === null
+    ) {
+      setMsgError(false)
+      setVisible(false);
+      setValueConverted('');
 
-    setValueConverted('0');
-    setVisible(false);
-    setSourceOfScreenshot('');
-
-    try {
-      let res = await fetch("/convertCoin", {
-        method: 'POST',
-        mode: 'cors',
-        cache:  'no-cache',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          coin: coin,
-          valueToConvert: valueToConvert
-        })
-      });
-
-      let resJson = await res.json()
-      
-      if (resJson.status === 200) {
-        console.log(resJson)
-        setValueConverted(resJson.valueConverted)
-        setSourceOfScreenshot(resJson.screenshot)
-        setVisible(true)
+    } else {
+      setMsgError(null)
+      setValueConverted('0');
+      setVisible(false);
+      setSourceOfScreenshot('');
+  
+      try {
+        let res = await fetch("/convertCoin", {
+          method: 'POST',
+          mode: 'cors',
+          cache:  'no-cache',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            coin: coin,
+            valueToConvert: valueToConvert
+          })
+        });
+  
+        let resJson = await res.json()
+        
+        if (resJson.status === 200) {
+          console.log(resJson)
+          setValueConverted(resJson.valueConverted)
+          setSourceOfScreenshot(resJson.screenshot)
+          setVisible(true)
+        }
+     
+      } catch (err) {
+        console.error(err);
       }
-   
-    } catch (err) {
-      console.error(err);
     }
+
   };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-      <body>
         <form onSubmit={convertCoin}>
           <div>
             <input 
-              type="text" 
+              type="number" 
               id="valueToConvert" 
               name="valueToConvert" 
               placeholder="Digite o valor em real a ser convertido" 
@@ -77,15 +85,16 @@ function App() {
           <div>
             <input type="submit" value="Converter" />
           </div>
+          <div>
+            <p>{msgError == false ? 'Digite o valor a ser convertido ou selecione a moeda que será usada na conversão' : null}</p>
+          </div>
         </form>
         <div>
           <p>{!valueConverted ? "" : (valueConverted === '0' ? "Convertendo..." : "O valor convertido foi: " + valueConverted)}</p>
         </div>
         <div>
-          <img src={sourceOfScreenshot !== '' ? '/printsOfConversions' + sourceOfScreenshot : ''} style={{ visibility: visible ? "visible" : "hidden" }} alt="Print da conversão"/>
-        </div>
-      </body>
-      
+          <img src={sourceOfScreenshot !== null ? '/printsOfConversions' + sourceOfScreenshot : ''} style={{ visibility: visible ? "visible" : "hidden" }} alt="Print da conversão"/>
+        </div>      
     </div>
   );
 }
